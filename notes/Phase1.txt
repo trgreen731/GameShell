@@ -1,0 +1,31 @@
+ - show a shape on the screen and move the shape with key inputs
+ - establish a windows compilation method
+ - establish a linux compilation method
+ - created ability to display and track multiple shapes
+ - created the host and join classes that will use UDP
+ - tested winsock method of socket programming with simple sender and receiver
+ - built the host initialization function
+ - built the packet handler of the host
+ - built the display message builder for the host
+ - built the join request handshake function
+ - built the join send and recv threads and corresponding helper functions
+ - built the join and host quit functions
+ - small read through fixes and extra error checking
+ - rework the host quit function to be a bit more elegant
+ - Slight adjustments to the mutex locking and unlocking to avoid deadlock
+ - Rework the join quit function to not recv in parallel with join receive (added exit check timer so doesnt hold exit lock so often)
+ - Function descriptions for connect classes
+ - Added maximum framerate timers for sending updates of player locations
+ - Fixed main function to work with the new join and host classes
+ - Added send pause to avoid sending in key or disp updates and requests at same time
+ - Syntax error correction
+ - Disconnected host and join send and recv threads as cannot be part of a class
+ - Adjusted makefile with connectstruct file to successfully run the program
+ - Status out created to print important steps
+ - get_timestamp fixed to output the time since last hour since unaffected by time zones
+ - Fixed several errors shown in buglog to get proper players working (one host, one join on single device)
+ - Adjusted steps and process of host and join quit so that quitting on host or join end when 1 host and 1 join on same device functions properly
+ - Added threading to the recv of the host and join so packets handled while more packets can be received. Backlog limit to prevent excessive packet input preventing normal processor operation.
+ - Ran test with host and join on own device -> succeeded
+ - Ran test with host and join on alternate device -> pogram begins but the connection to host is not made
+ + Added error logging and message logging files and capabilities

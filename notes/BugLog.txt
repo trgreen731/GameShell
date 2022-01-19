@@ -1,0 +1,39 @@
+0; 12/27/21; Port in use; Closed
+Two concurrent versions of the program could not be run as the first and second cannot share the same port and address.
+Theory: The program cannot be running twice on same device (need to find way around this)
+Fix: Separate definitions for server and client ports (also the proper local ip address)
+
+1; 12/27/21; WSAEFault on Host Recv; Closed
+First recv attempt made by host with successful socket bind throws WSAEFault (10014) failure.
+Theory: The slen needs to be initialized to the proper size of the sockaddr structure
+Fix: Theory correct
+
+2; 12/27/21; get_timestamp providing same value; Closed
+The join_request_handshake function only loops twice before pausing and the timestamp for the two loops is the same.
+Theory: these loops are fast (within same millisecond) and a different error is causing the pause
+Fix: the loops were indeed fast and flushing the stdout after each print showed all loops (no error causing pause)
+
+3; 12/27/21; host unresponsive on esc press; Closed
+The host will be not responding after esc pressed, all players have been closed but the threads do not close.
+Fix: The send thread only checked the exit after each round of sending which happens infrequently compared to the processor rate. It was switched to check each loop
+
+4; 12/27/21; flashing joined player; Closed
+Joined player movement may flash between current and previous position.
+Theory: disp packets update self player locations which cause it to retake old values if not perfectly synced.
+Fix: Theory correct. Hidden self location tracker used and sent to the host instead of the shown player location.
+
+5; 12/28/21; Host 10054 recv code; Closed
+When attempting to quit, the host recv 10054 code from join indicating an abrupt closure even tho close should be elegant. The join also gets stuck.
+Fix: seg fault due to attempting to set lock bit instead of the indicator bit ruining the lock info
+
+6; 12/28/21; Join Player stuck when quitting; Closed
+The connection on same device of host and join would set up properly but not close properly as the join would get stuck and the host would recv bad packets.
+Fix: The host was clearing the join address before sending the ack so bad send, future packets from join improperly recv, and join never recv ack (switching order fixes this)
+
+7; 12/31/21; Join Player Recv 16 times then stuck; Closed
+The join player recv thread stopped looping indicating a deadlock after receiving a certain number of packets.
+Fix: The lock was not unlocked if the thread was indicated to be not open preventing those threads from quitting and making more space for more recved packets
+
+8; 12/31/21; Operation unsuccessful on new device; Open
+After succeeding on own device, the program is run on a new device. The needed dll's are provided and the program begins execution. The host and join do not make connection. Firewall is not the issue as connections are allowed and rules match what is shown on own device.
+

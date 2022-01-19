@@ -1,0 +1,36 @@
+Phase 1:
+ - Add latency measure, packet loss detection, send rate, recv rate, etc all to be written to log file
+ - Rework some of the info structures and storage locations
+	-> move the conn_info into the classes if possible
+	-> possibly create a parent class and make the join and host child classes
+ - Run base test between separate devices on same local network (local host comms)
+ - Provide color info for the player when joining (either in request or response)
+ - set up a basic encryption method -> AES (or other symmetric key) encryption and decryption with a given key
+
+Phase 2:
+ - get the old mac disk version from katie to the vm
+ - Rework the program to run on mac os (defined precompiler constants)
+ - be conscious of the little vs big endian for packet info
+ - test on local device within vm then if succeeds, test with katie's computer and my computer for cross platform
+
+Phase 3:
+ - Research some more about port forwarding to see if it is a viable option to avoid need for AWS
+ - Set up AWS server to allow for use outside of local networks
+	-> server should have whitelisted ip addresses that will be added manually
+	-> server should only hold currently available addresses and games for limited time
+	-> whitelisting an address will come with a provided symmetric key (AES) used to communicate with server, this server then also can serve as the KDC for p2p communication encryption
+ - Build necessary components to allow for server communication with encryption methods (test using local pseudo server)
+
+Phase 4:
+ - Basic player model and sprite creation (break into the 418 content)
+ - look into creating a defined structure for a custom file to hold image data (or just use images who cares)
+ - Start adding adjustable settings
+ - Create a menu screen and game state
+ - Create selectable single and multiplayer
+
+Long Term Game Ideas
+ - Create a fighting style game (similar to smash or arcade style)
+ - Start with black panther character model and expand
+ - Implement single or multiplayer choices with socket programming for multiplayer
+ - Implement basic enemy for single player mode (AI based??)
+ - Make sure have adjustable settings
